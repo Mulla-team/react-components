@@ -1,0 +1,41 @@
+
+@font-face {
+	font-family: 'Inter-Bold';
+	font-weight: bold;
+	src: local('☺'), url('../fonts/Inter-Bold.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Inter-Regular';
+	font-weight: normal;
+	src: local('☺'), url('../fonts/Inter-Regular.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Inter-Medium';
+	font-weight: normal;
+	src: local('☺'), url('../fonts/Inter-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Inter-Semibold';
+	font-weight: bold;
+	src: local('☺'), url('../fonts/Inter-SemiBold.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Inter-Light';
+	font-weight: lighter;
+	src: local('☺'), url('../fonts/Inter-Light.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'unicons';
+	src: url('../fonts/unicons.eot?45242598');
+	src: url('../fonts/unicons.eot?45242598#iefix') format('embedded-opentype'),
+			 url('../fonts/unicons.woff?45242598') format('woff'),
+			 url('../fonts/unicons.ttf?45242598') format('truetype'),
+			 url('../fonts/unicons.svg?45242598#unicons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
