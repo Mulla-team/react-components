@@ -11,7 +11,7 @@ type ButtonRenderPropArg = {
   disabled?: boolean,
   fill?: boolean,
   size?: 'lg' | 'sm',
-  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link'
+  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon'
 }
 
 type ButtonPropsWeControl = 'id' | 'tabIndex' | 'onClick' | 'onKeyUp' | 'onKeyPress' | 'className' | 'variant' | 'size' | 'type' | 'fill';
@@ -21,7 +21,7 @@ export function Button < TTag extends React.ElementType = typeof DEFAULT_BUTTON_
   disabled?: boolean,
   fill?: boolean,
   size?: 'lg' | 'sm',
-  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link',
+  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon',
   onClick?: (event : React.MouseEvent < HTMLButtonElement, MouseEvent >) => void,
   className?: ((bag : ButtonRenderPropArg) => string) | string
 }) {

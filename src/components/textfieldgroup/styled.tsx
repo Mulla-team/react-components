@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import {TextField} from './textfieldgroup'
 
 const StyledTextField : typeof TextField = styled(TextField)`
-  padding: .8em 1em;
+  padding: .6em .9em;
   --box-shadow-color: #D7ECFF;
   border-radius: ${ (props) => props.theme.inputBorderRadius};
-  border: 1px solid ${ (props) => props.theme.inactiveGrey};
-  box-shadow: 0px 3px 3px -2px rgba(157, 157, 157, 0.25);
+  border: 1px solid #E7E9ED;
+  box-shadow: 0px 2px 2px -2px rgba(157, 157, 157, 0.18);
   color: ${ (props) => props.theme.defaultTextColor};
-  font-size: 16px;
+  font-size: .95em;
   background: #FFFFFF;
   transition: all .1s ease-in-out;
   font-family: var(--font-family-regular);
@@ -16,7 +16,7 @@ const StyledTextField : typeof TextField = styled(TextField)`
   &:focus {
     outline: none;
     border-color: ${ (props) => props.theme.textFieldBorder};
-    box-shadow: 0 0 0 3px var(--box-shadow-color);
+    box-shadow: 0 0 0 2px var(--box-shadow-color);
   }
   &.text-field--fill {
     width: 100%;
@@ -25,7 +25,7 @@ const StyledTextField : typeof TextField = styled(TextField)`
     border-color: ${ (props) => props.theme.danger};
     --box-shadow-color: ${ (props) => props.theme.dangerTransluscent};
     &:hover {
-      box-shadow: 0 0 0 3px var(--box-shadow-color);
+      box-shadow: 0 0 0 2px var(--box-shadow-color);
     }
   }
   &[type=password] {
@@ -48,9 +48,9 @@ const StyledTextField : typeof TextField = styled(TextField)`
     position: absolute;
     background: #FFFFFF;
     right: 1em;
-    top: .85em;
+    bottom: .65em;
     outline: none;
-    font-size: 18px;
+    font-size: 17px;
     &:focus {
       outline: none;
     }
@@ -74,7 +74,7 @@ const StyledTextField : typeof TextField = styled(TextField)`
 
 const StyledTextFieldLabel : typeof TextField.Label = styled(TextField.Label)`
   color: ${ (props) => props.theme.defaultTextColor};
-  font-size: 1rem;
+  font-size: .9rem;
 `
 
 StyledTextField.Label = StyledTextFieldLabel;

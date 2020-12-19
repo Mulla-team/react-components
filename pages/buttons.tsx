@@ -26,6 +26,11 @@ export const Buttons = () => {
       variant='danger'
       className='my-4'
       size='sm'>Hello</Button>
+    <Button
+      onClick={() => alert('HEEEYYY')}
+      variant='light'
+      className='my-4'
+      size='sm'>Cancel</Button>
   </MainWrap>
 }
 

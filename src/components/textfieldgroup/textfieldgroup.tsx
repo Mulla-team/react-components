@@ -42,7 +42,7 @@ function Group < TTag extends React.ElementType = typeof DEFAULT_GROUP_TAG > (pr
 
 const DEFAULT_TEXT_FIELD_TAG = 'input'
 
-type TextFieldRenderPropArg = {
+interface TextFieldRenderPropArg {
   disabled?: boolean,
   error?: string,
   fill?: boolean,
@@ -57,19 +57,20 @@ function ErrorMessage(props : {
   </div>;
 }
 
-type TextFieldPropsWeControl = 'id' | 'className' | 'placeholder' | 'fill' | 'error' | 'onChange' | 'appendIcon' | 'required';
+type TextFieldPropsWeControl = 'id' | 'className' | 'placeholder' | 'fill' | 'error' | 'onChange' | 'appendIcon' | 'required' | 'value';
 
-export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg, TextFieldPropsWeControl > & {
+export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg & React.InputHTMLAttributes < HTMLInputElement >, TextFieldPropsWeControl > & {
   disabled?: boolean,
   fill?: boolean,
   error?: string,
   placeholder?: string,
-  appendIcon?: JSX.Element;
+  appendIcon?: JSX.Element,
   type?: 'email' | 'password' | 'number' | 'text',
-  required?: boolean,
+  value?: string | number,
   onChange?: (e : React.ChangeEvent < HTMLInputElement >, value : string | number) => void,
   className?: ((bag : TextFieldRenderPropArg) => string) | string
 }) {
+  // control text visibility for password text fields
   const [isTextVisible,
     setIsTextVisible] = React.useState < boolean | undefined > (undefined);
   const {
@@ -81,6 +82,8 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
     placeholder,
     appendIcon,
     required,
+    value,
+    autoFocus,
     type = 'text',
     ...passThroughProps
   } = props;
@@ -104,6 +107,7 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
     className: classNames(resolvePropValue(className, propsBag), addDefaultClasses({disabled, fill, error})),
     onChange: handleChange,
     required,
+    value,
     'aria-labelledby': groupContext
       ?.label
         ?.id,
@@ -112,10 +116,11 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
       : isTextVisible
         ? 'text'
         : type,
+    autoFocus,
     disabled
-  }
+  };
 
-  return <div className='text-field-container relative mt-3'>
+  return <div className='text-field-container relative'>
       {render({
         ...passThroughProps,
         ...propsWeControl
@@ -126,62 +131,63 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
         className='text-field__icon-btn'
         onClick={() => setIsTextVisible(!isTextVisible)}>
         {isTextVisible
-          ? <i className="uc-icon grey-text">&#xe9a7;</i>
-          : <i className="uc-icon grey-text">&#xe9a8;</i>}
+          ? <i className="uc-icon text-grey">&#xe9a7;</i>
+          : <i className="uc-icon text-grey">&#xe9a8;</i>}
       </button>}
       {appendIcon && <button disabled={disabled} className='text-field__icon-btn'>
         {appendIcon}
       </button>}
     </div>
 
-  }
+}
 
-  type LabelPropsWeControl = 'id' | 'ref' | 'onPointerUp'
+type LabelPropsWeControl = 'id' | 'ref' | 'onPointerUp'
 
-  const DEFAULT_LABEL_TAG = 'label'
+const DEFAULT_LABEL_TAG = 'label'
 
-    type LabelRenderPropArg = {}
+  type LabelRenderPropArg = {}
 
-    function Label < TTag extends React.ElementType = typeof DEFAULT_LABEL_TAG > (props : Props < TTag, LabelRenderPropArg, LabelPropsWeControl >) {
-      const state = useGroupContext([TextField.name, Label.name].join('.'));
-      const id = `wallet-ui-textfield-label-${useId()}`;
-      const handlePointerUp = React.useCallback(() => {
-        if (!state.textField) 
-          return;
-        state
-          .textField
-          .focus()
-      }, [state.textField])
+  function Label < TTag extends React.ElementType = typeof DEFAULT_LABEL_TAG > (props : Props < TTag, LabelRenderPropArg, LabelPropsWeControl >) {
+    const state = useGroupContext([TextField.name, Label.name].join('.'));
+    const id = `wallet-ui-textfield-label-${useId()}`;
+    const handlePointerUp = React.useCallback(() => {
+      if (!state.textField) 
+        return;
+      state
+        .textField
+        .focus()
+    }, [state.textField])
 
-      const propsWeControl = {
-        ref: state.setLabel,
-        id,
-        onPointerUp: handlePointerUp
-      }
-
-      return render({
-        ...props,
-        ...propsWeControl
-      }, {}, DEFAULT_LABEL_TAG)
+    const propsWeControl = {
+      ref: state.setLabel,
+      id,
+      onPointerUp: handlePointerUp
     }
 
-    TextField.Group = Group
-    TextField.Label = Label
-    TextField.ErrorMessage = ErrorMessage
-
-    function resolvePropValue < TProperty,
-    TBag > (property : TProperty, bag : TBag) {
-      if(property === undefined) 
-        return undefined
-      if (typeof property === 'function') 
-        return property(bag)
-      return property
+    return render({
+      ...props,
+      ...propsWeControl,
+      className: `${props.className} mb-3`
+    }, {}, DEFAULT_LABEL_TAG)
   }
 
-  function addDefaultClasses(bag : TextFieldRenderPropArg) {
-    return `text-field ${bag.fill
-      ? 'text-field--fill'
-      : ''} ${bag.error
-        ? 'text-field--error'
-        : ''}`.trim()
-  }
+  TextField.Group = Group
+  TextField.Label = Label
+  TextField.ErrorMessage = ErrorMessage
+
+  function resolvePropValue < TProperty,
+  TBag > (property : TProperty, bag : TBag) {
+    if(property === undefined) 
+      return undefined
+    if (typeof property === 'function') 
+      return property(bag)
+    return property
+}
+
+function addDefaultClasses(bag : TextFieldRenderPropArg) {
+  return `text-field ${bag.fill
+    ? 'text-field--fill'
+    : ''} ${bag.error
+      ? 'text-field--error'
+      : ''}`.trim()
+}

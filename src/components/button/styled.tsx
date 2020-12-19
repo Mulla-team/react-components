@@ -9,16 +9,15 @@ const StyledButton : typeof Button = styled(Button)`
   outline: none;
   border-radius: ${ (props) => props.theme.borderRadius};
   border: none;
-  padding: .8em 3em;
-  font-size: 1em;
+  padding: .8em 2em .85em 2em;
+  font-size: 14px;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
   color: #FFFFFF;
   font-family: var(--font-family-regular);
-  transition: background .1s ease-in;
   --box-shadow-color: ${ (props) => props.theme.lightGrey};
   --spinner-size: 20px;
   align-self: flex-start;
-  transition: box-shadow .2s ease-out;
+  transition: box-shadow .2s ease-out, background .1s ease-in;
   @keyframes spin {
     to { -webkit-transform: rotate(360deg); }
   }
@@ -68,6 +67,33 @@ const StyledButton : typeof Button = styled(Button)`
       display: block;
     }
   }
+  &.btn--light {
+    --box-shadow-color: ${ (props) => props.theme.lightGrey};
+    background: ${ (props) => props.theme.borderedButtonBg};
+    color: #FFFFFF;
+    &:hover {
+      background: ${ (props) => props.theme.borderedButtonFocusBg};
+    }
+  }
+  &.btn--icon {
+    --box-shadow-color: ${ (props) => props.theme.lightGrey};
+    border-radius: ${ (props) => props.theme.borderRadius};
+    padding: .4em;
+    border: 1px solid ${ (props) => props.theme.lightGrey};
+    transition: box-shadow .2s ease-out, background .1s ease-in;
+    box-shadow: 0px 3px 3px -2px rgba(157, 157, 157, 0.25);
+    font-size: 18px;
+    &:hover {
+      background: #F9F9F9;
+    }
+    &:active {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--box-shadow-color);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
   &:disabled {
     --box-shadow-color: ${ (props) => props.theme.lightGrey};
     background: ${ (props) => props.theme.inactiveGrey};
@@ -106,8 +132,8 @@ const StyledButton : typeof Button = styled(Button)`
     width: 100%;
   }
   &.btn--sm {
-    padding: .4em 2em;
-    font-size: .9em;
+    padding: .6em 2em;
+    font-size: 14px;
     &:before {
       right: calc(50% - 14px);
     }

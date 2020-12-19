@@ -39,3 +39,19 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
+.font-family-reg {
+	font-family: 'Inter-Regular';
+}
+
+.font-family-med {
+	font-family: 'Inter-Medium';
+}
+
+.font-family-semi {
+	font-family: 'Inter-Semibold';
+}
+
+.font-family-bold {
+	font-family: 'Inter-Bold';
+}

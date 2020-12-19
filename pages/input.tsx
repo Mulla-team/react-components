@@ -21,13 +21,17 @@ export const TextFields = () => {
     }}>
       <TextField.Group>
         <TextField.Label>Username *</TextField.Label>
-        <TextField className='mb-4' placeholder='Enter your username'/>
+        <TextField
+          autoFocus={true}
+          className='mb-4 mt-3'
+          placeholder='Enter your username'/>
       </TextField.Group>
       <TextField.Group>
         <TextField.Label>Password *</TextField.Label>
-        <TextField placeholder='Enter a password' type={'password'}/>
+        <TextField className='mt-3' placeholder='Enter a password' type={'password'}/>
       </TextField.Group>
       <Button className='mt-4' fill>Sign In</Button>
+      <Button variant='light' className='my-4' fill>Cancel</Button>
     </div>
   </MainWrap>
 }

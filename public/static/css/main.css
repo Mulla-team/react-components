@@ -33,15 +33,23 @@ body {
   --opalBlueTransluscent: rgba(0, 39, 63, 0.42);
   --greenTransluscent: #DCF7E0;
   --naijaGreenTransluscent: rgba(46, 171, 66, 0.42);
-  --glazedOranngeTransluscent: rgba(234, 140, 0, 0.42)
+  --glazedOrangeTransluscent: rgba(234, 140, 0, 0.42)
 }
 
-.grey-text {
+.text-grey {
   color: var(--grey);
 }
 
-.primary-text {
+.text-primary {
   color: var(--blue);
+}
+
+.text-primary {
+  color: var(--blue);
+}
+
+.text-default {
+  color: var(--opalBlue);
 }
 
 .uc-icon {
