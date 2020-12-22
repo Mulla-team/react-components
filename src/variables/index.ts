@@ -26,6 +26,19 @@ export const color : {
   orangeTransluscent: '#FFF2DF'
 }
 
+export const screenSize : {
+  [s : string] : string
+} = {
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+  tablet: '768px',
+  laptop: '1028px',
+
+  laptopL: '1440px',
+  desktop: '2560px'
+};
+
 export const size : {
   [s : string] : string
 } = {
@@ -38,7 +51,7 @@ export const size : {
 }
 
 export const theme : {
-  [s : string] : string
+  [s : string] : any
 } = {
   primary: color.blue,
   secondary: color.leafGreen,
@@ -62,6 +75,7 @@ export const theme : {
   iconGrey: color.grey,
   borderedButtonBg: color.ashGrey,
   borderedButtonFocusBg: color.ashGreyDark,
+  screenSize,
   ...size,
   ...color
 }

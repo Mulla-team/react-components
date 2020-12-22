@@ -2,6 +2,7 @@ import * as React from 'react'
 import {Props} from '../../types'
 import {render} from '../../utils/render'
 import {useId} from '../../hooks/use-id'
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 type StateDefinition = {
   container: HTMLDivElement | null,
@@ -64,19 +65,60 @@ function Group < TTag extends React.ElementType = typeof DEFAULT_GROUP_TAG > (pr
   )
 }
 
-const DEFAULT_MODAL_TAG = 'div';
+const DEFAULT_MODAL_TAG = React.Fragment;
 
-type ModalPropsWeControl = 'id' | 'className' | 'ref'
+type ModalPropsWeControl = 'id' | 'className' | 'ref' | 'isVisible' | 'onHide'
 
-export function Modal < TTag extends React.ElementType = typeof DEFAULT_MODAL_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLDivElement >, ModalPropsWeControl >) {
+export function Modal < TTag extends React.ElementType = typeof DEFAULT_MODAL_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLDivElement >, ModalPropsWeControl > & {
+  isVisible: boolean,
+  onHide: () => void,
+  size?: 'sm' | 'lg' | 'xl'
+}) {
   const id = `modal-${useId()}`;
   const groupContext = React.useContext(GroupContext);
+  const {
+    onHide,
+    isVisible,
+    size,
+    ...passThroughProps
+  } = props;
+
+  React.useEffect(() => {
+    if (isVisible) {
+      // @ts-ignore
+      document
+        .body
+        .classList
+        .add("overflow-y-hidden");
+    } else {
+      // @ts-ignore
+      document
+        .body
+        .classList
+        .remove("overflow-y-hidden");
+    }
+  }, [isVisible]);
+
   return render({
-    ...props,
+    ...passThroughProps,
     ref: groupContext === null
       ? undefined
       : groupContext.setContainerElement,
-    className: `modal ${props.className || ''}`.trim(),
+    children: <TransitionGroup>
+      {props.isVisible && <CSSTransition classNames="overlay-fade" timeout={300}>
+        <div onClick={props.onHide} className='overlay'></div>
+      </CSSTransition>}
+      {props.isVisible && <CSSTransition classNames='modal' timeout={350}>
+        <div className={`modal modal--${props.size || 'md'}`.trim()}>
+          <div className='modal__content'>
+            <button onClick={props.onHide} className='close-modal'>
+              <i className="uc-icon text-grey">&#xeb8e;</i>
+            </button>
+            {props.children}
+          </div>
+        </div>
+      </CSSTransition>}
+    </TransitionGroup>,
     id
   }, {}, DEFAULT_MODAL_TAG)
 }
