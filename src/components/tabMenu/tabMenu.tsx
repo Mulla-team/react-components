@@ -87,7 +87,12 @@ const DEFAULT_HEADER_TAG = 'div';
 
 type HeaderPropsWeControl = 'id' | 'className' | 'ref'
 
-function Header < TTag extends React.ElementType = typeof DEFAULT_HEADER_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLDivElement >, HeaderPropsWeControl >) {
+function Header < TTag extends React.ElementType = typeof DEFAULT_HEADER_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLDivElement >, HeaderPropsWeControl > & {
+  id?: string,
+  className?: string,
+  isActive?: boolean,
+  children?: any
+}) {
   const id = `tabs-menu-header-${useId()}`;
   const {setHeaderElement} = useGroupContext('TabsMenu.Header');
 
@@ -103,7 +108,7 @@ const DEFAULT_TAB_MENU_ITEM_TAG = 'button';
 
 type TabItemPropsWeControl = 'id' | 'className' | 'isActive' | 'path' | 'ref';
 
-function TabMenuItem < TTag extends React.ElementType = typeof DEFAULT_TAB_MENU_ITEM_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLDivElement >, TabItemPropsWeControl > & {
+function TabMenuItem < TTag extends React.ElementType = typeof DEFAULT_TAB_MENU_ITEM_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLButtonElement >, TabItemPropsWeControl > & {
   id?: string,
   className?: string,
   isActive?: boolean,
@@ -119,10 +124,16 @@ function TabMenuItem < TTag extends React.ElementType = typeof DEFAULT_TAB_MENU_
     ...passThroughProps
   } = props;
 
+  React.useEffect(() => {
+    if (initActive) {
+      setActivePath(path);
+    }
+  }, [initActive])
+
   const isActive = React.useMemo(() => {
     if (activePath) {
       return activePath === path
-    } else {
+    } else if (initActive) {
       return initActive
     }
   }, [initActive, activePath]);

@@ -227,7 +227,7 @@ export function SelectField < TTag extends React.ElementType = typeof DEFAULT_TE
       return render({
         ...props,
         ...propsWeControl,
-        className: `mb-3 ${props.className}`
+        className: `${props.className} mb-3`
       }, {}, DEFAULT_LABEL_TAG)
     }
 

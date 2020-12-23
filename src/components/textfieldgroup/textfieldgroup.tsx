@@ -99,9 +99,6 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
   const propsBag = React.useMemo < TextFieldRenderPropArg > (() => ({disabled}), [disabled]);
   const propsWeControl = {
     id,
-    ref: groupContext === null
-      ? undefined
-      : groupContext.setTextFieldElement,
     tabIndex: 0,
     placeholder,
     className: classNames(resolvePropValue(className, propsBag), addDefaultClasses({disabled, fill, error})),
