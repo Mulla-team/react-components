@@ -91,7 +91,7 @@ function MenuItemsList(props : {
 
 type TextFieldPropsWeControl = 'id' | 'className' | 'placeholder' | 'fill' | 'error' | 'onChange' | 'appendIcon' | 'required' | 'menuItems';
 
-export function SelectField < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg, TextFieldPropsWeControl > & {
+export function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg, TextFieldPropsWeControl > & {
   disabled?: boolean,
   fill?: boolean,
   error?: string,
@@ -103,7 +103,7 @@ export function SelectField < TTag extends React.ElementType = typeof DEFAULT_TE
   value?: string | number | boolean,
   onChange?: (e : React.ChangeEvent < HTMLInputElement >, value : string | number | boolean) => void,
   className?: ((bag : TextFieldRenderPropArg) => string) | string
-}) {
+}, ref?: React.Ref < HTMLInputElement >) {
   const {
     disabled,
     fill,
@@ -153,9 +153,6 @@ export function SelectField < TTag extends React.ElementType = typeof DEFAULT_TE
   const propsBag = React.useMemo < TextFieldRenderPropArg > (() => ({disabled}), [disabled]);
   const propsWeControl = {
     id,
-    ref: groupContext === null
-      ? undefined
-      : groupContext.setSelectFieldElement,
     tabIndex: 0,
     placeholder,
     className: classNames(resolvePropValue(className, propsBag), addDefaultClasses({disabled, fill, error})),
@@ -172,6 +169,7 @@ export function SelectField < TTag extends React.ElementType = typeof DEFAULT_TE
     onBlur: () => {
       window.setTimeout(() => setIsMenuVisible(false), 200);
     },
+    ref,
     value: filterValue,
     autoComplete: 'off',
     onFocus: () => {
@@ -200,6 +198,9 @@ export function SelectField < TTag extends React.ElementType = typeof DEFAULT_TE
       }}/>}
     </div>
   }
+
+  // @ts-ignore
+  export const SelectField = React.forwardRef(SelectFieldIN)as Test & typeof SelectFieldIN;
 
   type LabelPropsWeControl = 'id' | 'ref' | 'onPointerUp'
 

@@ -13,6 +13,7 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
   transition: all .1s ease-in-out;
   font-family: var(--font-family-regular);
   width: 100%;
+  position: relative;
   &:focus {
     outline: none;
     border-color: ${ (props) => props.theme.textFieldBorder};
@@ -48,7 +49,7 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
     position: absolute;
     background: #FFFFFF;
     right: 1em;
-    top: .85em;
+    top: 1.25em;
     outline: none;
     font-size: 18px;
     &:focus {
@@ -72,12 +73,14 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
   }
   & ~ .menu-list {
     position: absolute;
+    top: 65px;
     width: 100%;
     transform: translateY(-10px);
     box-shadow: 0px 5px 5px -1px rgba(157, 157, 157, 0.25);
     border-radius: 4px;
     overflow: hidden;
-    z-index: 100;
+    background: #FFFFFF;
+    z-index: 10;
     .menu-list__item {
       position: relative;
       padding: .9em 1em;

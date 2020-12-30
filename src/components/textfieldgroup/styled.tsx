@@ -5,8 +5,8 @@ const StyledTextField : typeof TextField = styled(TextField)`
   padding: .6em .9em;
   --box-shadow-color: #D7ECFF;
   border-radius: ${ (props) => props.theme.inputBorderRadius};
-  border: 1px solid #E7E9ED;
-  box-shadow: 0px 2px 2px -2px rgba(157, 157, 157, 0.18);
+  border: 1px solid ${ (props) => props.theme.inactiveGrey};
+  box-shadow: 0px 3px 3px -2px rgba(157, 157, 157, 0.25);
   color: ${ (props) => props.theme.defaultTextColor};
   font-size: .95em;
   background: #FFFFFF;
@@ -77,6 +77,12 @@ const StyledTextFieldLabel : typeof TextField.Label = styled(TextField.Label)`
   font-size: .9rem;
 `
 
+const StyledTextFielErrorMessage : typeof TextField.ErrorMessage = styled(TextField.ErrorMessage)`
+  color: ${ (props) => props.theme.danger};
+  font-size: .9rem;
+`
+
 StyledTextField.Label = StyledTextFieldLabel;
+StyledTextField.ErrorMessage = StyledTextFielErrorMessage;
 
 export default StyledTextField;

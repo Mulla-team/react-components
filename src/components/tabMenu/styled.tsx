@@ -8,21 +8,20 @@ const StyledTabMenu : typeof TabMenu = styled(TabMenu)`
     display: flex;
   }
   .tab-menu-body{
-    background: red;
     position: relative;
   }
   .tab-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
     opacity: 0;
-    z-index: -1;
+    height: 0;
+    overflow: hidden;
     transition: opacity .2s ease-in-out;
+    position: absolute;
     &.tab-content--active {
+      position: static;
+      display: block;
       opacity: 1;
-      z-index: 1;
+      height: auto;
+      overflow: visible;
     }
   }
   .tab-menu-item {

@@ -1,9 +1,14 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import TextField from '../../src/components/textfieldgroup'
-import SelectField from '../../src/components/selectfieldgroup'
+import SelectField from '../../src/components/selectfieldgroup/styled'
 import Button from '../../src/components/button'
-import {useForm} from "react-hook-form";
+import {useForm} from 'react-hook-form'
+import {yupResolver} from '@hookform/resolvers/yup'
+import classNames from 'classnames'
+import {useQuery, useMutation} from 'react-query'
+import Link from 'next/link'
+import * as yup from "yup"
 
 const ArrowIconWrap = styled.span `
   svg {
@@ -28,87 +33,160 @@ interface IFormInput {
   phonenumber : string
 }
 
-export const IndividualRegiterForm = () => {
+const schema = yup
+  .object()
+  .shape({
+    firstname: yup
+      .string()
+      .required('First name is required')
+      .max(200),
+    lastname: yup
+      .string()
+      .required('Last name is required')
+      .max(200),
+    email: yup
+      .string()
+      .required('Email is required')
+      .email('Email must be a valid email')
+      .max(200),
+    phonenumber: yup
+      .string()
+      .required('Phone number is required')
+      .max(100),
+    country: yup
+      .string()
+      .required('Country is required')
+      .max(100)
+  });
 
-  const {register, handleSubmit} = useForm();
+interface Props {
+  onSubmit : (values : IFormInput) => void
+}
+
+export const IndividualRegiterForm = (props : Props) => {
+
+  const [country,
+    setCountry] = React.useState < string | undefined > (undefined)
+
+  const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)});
 
   const onSubmit = (data : any) => {
-    console.log('Hreee', data)
+    const {onSubmit} = props
+    onSubmit(data as IFormInput)
   };
 
   return <form onSubmit={onSubmit} className="w-100 flex flex-col">
-    <div className='flex'>
+    <div className='flex flex-col sm:flex-row'>
       <TextField.Group>
-        <div className='w-100 sm:w-1/2 pr-0 sm:pr-2'>
-          <TextField.Label>First Name *</TextField.Label>
+        <div
+          className={classNames('w-100 sm:w-1/2 pr-0 sm:pr-2 mb-3', {
+          'sm:mb-2': !errors.firstname,
+          'sm:mb-0': errors.firstname
+        })}>
+          <TextField.Label>First name *</TextField.Label>
           <TextField
             ref={register({required: true, minLength: 20})}
             name='firstname'
             autoFocus={true}
-            className='mb-4 mt-3'
-            placeholder='Enter first name'/>
+            className='mt-3'
+            placeholder='Enter first name'
+            error={errors.firstname
+            ? errors.firstname.message
+            : undefined}/>
         </div>
       </TextField.Group>
       <TextField.Group>
-        <div className='w-100 sm:w-1/2 pl-0 sm:pl-2'>
-          <TextField.Label>Last Name *</TextField.Label>
+        <div
+          className={classNames('w-100 sm:w-1/2 pl-0 sm:pl-2 mb-3', {
+          'sm:mb-2': !errors.lastname,
+          'sm:mb-0': errors.lastname
+        })}>
+          <TextField.Label>Last name *</TextField.Label>
           <TextField
             ref={register({required: true})}
             name='lastname'
-            className='mb-4 mt-3'
-            placeholder='Enter last name'/>
+            className='mt-3'
+            placeholder='Enter last name'
+            error={errors.lastname
+            ? errors.lastname.message
+            : undefined}/>
         </div>
       </TextField.Group>
     </div>
-    <div className='flex mt-2'>
+    <div className='flex flex-col sm:flex-row sm:mt-2'>
       <TextField.Group>
-        <div className='w-100 sm:w-1/2 pr-0 sm:pr-2'>
+        <div
+          className={classNames('w-100 sm:w-1/2 pr-0 sm:pr-2 mb-3', {
+          'sm:mb-2': !errors.email,
+          'sm:mb-0': errors.email
+        })}>
           <TextField.Label>Email *</TextField.Label>
           <TextField
             ref={register({required: true})}
             name='email'
             type='email'
-            className='mb-4 mt-3'
-            placeholder='jon@stark.com'/>
+            className='mt-3'
+            placeholder='jon@stark.com'
+            error={errors.email
+            ? errors.email.message
+            : undefined}/>
         </div>
       </TextField.Group>
       <TextField.Group>
-        <div className='w-100 sm:w-1/2 pl-0 sm:pl-2'>
+        <div
+          className={classNames('w-100 sm:w-1/2 pl-0 sm:pl-2 mb-3', {
+          'sm:mb-2': !errors.phonenumber,
+          'sm:mb-0': errors.phonenumnber
+        })}>
           <TextField.Label>Phone number *</TextField.Label>
           <TextField
             ref={register({required: true})}
             name='phonenumber'
-            className='mb-4 mt-3'
-            placeholder='Enter phone number'/>
+            className='mt-3'
+            placeholder='Enter phone number'
+            error={errors.phonenumber
+            ? errors.phonenumber.message
+            : undefined}/>
         </div>
       </TextField.Group>
     </div>
     <SelectField.Group>
-      <div className='w-100 mt-2'>
+      <div
+        className={classNames('w-100 sm:mt-2 mb-2', {
+        'sm:mb-2': !errors.country,
+        'sm:mb-0': errors.country
+      })}>
         <SelectField.Label>Country *</SelectField.Label>
         <SelectField
+          ref={register({required: true})}
           name='country'
-          className='mb-4 mt-3'
-          value={''}
-          onChange={(event, _value) => {}}
+          className='mt-3'
+          value={country}
+          onChange={(event, _value) => {
+          setCountry(event.target.value);
+        }}
           menuItems={[
           {
-            label: 'Michael Jackson',
-            value: 'MJackson'
+            label: 'Rwanda',
+            value: 'RWA'
           }, {
-            label: 'Michael Jordan',
-            value: 'MJordan'
+            label: 'Kenya',
+            value: 'KE'
           }, {
-            label: 'Mike Tyson',
-            value: 'MTyson'
+            label: 'Uganda',
+            value: 'UG'
           }
         ]}
-          placeholder='Select a country'/>
+          placeholder='Select a country'
+          error={errors.country
+          ? errors.country.message
+          : undefined}/>
       </div>
     </SelectField.Group>
     <Button
       onClick={handleSubmit(onSubmit)}
       type='submit'
+      loading={false}
       className='mt-4 flex items-center'
       fill>Sign up
       <ArrowIconWrap className='ml-2'>
@@ -124,7 +202,7 @@ export const IndividualRegiterForm = () => {
         </svg>
       </ArrowIconWrap>
     </Button>
-    <LoginLinkText className='mt-5 w-100 text-center'>Aleady have an account?
+    <LoginLinkText className='mt-5 w-100 text-center'>Already have an account?
       <span>&nbsp;Log in</span>
     </LoginLinkText>
   </form>
