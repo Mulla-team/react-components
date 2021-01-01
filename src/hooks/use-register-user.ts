@@ -18,11 +18,15 @@ export default function useRegisterUser() {
     setState({isLoading: true})
     try {
       const data = await axios.post('http://li2142-101.members.linode.com:8061/customer/onboard', {
-        headers: {
+        header: {
           'requestId': uuid(),
           'command': 'CREATE_CUSTOMER'
         },
         payload: values
+      }, {
+        headers: {
+          tenantCode: 'mula'
+        }
       }).then((res) => res.data)
       setState({isSuccess: true, data})
     } catch (error) {

@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import TabMenu from '../../src/components/tabMenu/styled'
 import IndividualForm from './individualform'
+import BusinessForm from './businessform'
 import Image from 'next/image'
 
 import useRegisterUser from '../../src/hooks/use-register-user'
@@ -12,6 +13,22 @@ const OuterWrap = styled.div `
   display: flex;
   flex-direction: column;
   align-items: center;
+`
+
+const NavBar = styled.nav `
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  .nav-bar__inner {
+    width: 100%;
+    padding: 32px 0;
+    max-width: ${props => props.theme.xLargeWindowSize};
+    @media(min-width: ${props => props.theme.screenSize.tablet}) {
+      padding: 20px 32px;
+    }
+  }
 `
 
 const InnerWrap = styled.div `
@@ -80,6 +97,7 @@ const FormWrap = styled.div `
   padding: 32px;
   background: #FFFFFF;
   box-shadow: 0px 5px 8px -2px rgba(157, 157, 157, 0.25);
+  align-self: start;
   @media(min-width: ${props => props.theme.screenSize.tablet}) {
     margin-left: 60px;
     border-radius: 7px;
@@ -91,6 +109,7 @@ interface IFormInput {
   firstname : string;
   lastname : string;
   email : string;
+  country : string;
   phonenumber : string
 }
 
@@ -107,7 +126,7 @@ export const CustomerRegistration = () => {
       .add("bg-ocean-blue-trans", "pattern-bg");
   }, [])
 
-  const handleSubmit = async(values : IFormInput) => {
+  const handleSubmit = async(values : IFormInput, registrationType : 'INDIVUDUAL' | 'BUSINESS') => {
     const payload = {
       personalInfo: {
         firstName: values.firstname,
@@ -116,7 +135,8 @@ export const CustomerRegistration = () => {
       profileDetails: {
         email: values.email,
         mobileNumber: values.phonenumber,
-        registrationType: "INDIVUDUAL"
+        residence: values.country,
+        registrationType
       }
     }
     //@ts-ignore
@@ -124,13 +144,18 @@ export const CustomerRegistration = () => {
   }
 
   return <OuterWrap>
+    <NavBar>
+      <div className="nav-bar__inner">
+        <Image src="/static/mulla-logo-01.svg" alt="wallet" width={118} height={32}/>
+      </div>
+    </NavBar>
     <InnerWrap className='flex flex-col sm:flex-row'>
       <div className="w-100 sm:w-1/2 px-6 sm:px-0">
         <HeadText>Enjoy borderless transactions, Join Mulla today!</HeadText>
         <SubHeadText className='mt-3 sm:mt-6'>Send and recieve money across Africa</SubHeadText>
         <div className="flex mt-12">
           <IlluCtn className='hidden sm:flex items-center justify-center'>
-            <Image src="/static/wallet.png" alt="wallet" width={30} height={30}/>
+            <Image src="/static/wallet.png" alt="wallet" width={28} height={28}/>
           </IlluCtn>
           <IlluCtn className='flex sm:hidden items-center justify-center'>
             <Image src="/static/wallet.png" alt="wallet" width={22} height={22}/>
@@ -178,9 +203,11 @@ export const CustomerRegistration = () => {
               </TabMenu.Header>
               <TabMenu.Body>
                 <TabMenu.TabContent className='pt-6' path='/1'>
-                  <IndividualForm onSubmit={handleSubmit}/>
+                  <IndividualForm onSubmit={(values) => handleSubmit(values, 'INDIVUDUAL')}/>
                 </TabMenu.TabContent>
-                <TabMenu.TabContent className='pt-6' path='/2'>Tab 2</TabMenu.TabContent>
+                <TabMenu.TabContent className='pt-6' path='/2'>
+                  <BusinessForm onSubmit={(values) => handleSubmit(values, 'BUSINESS')}></BusinessForm>
+                </TabMenu.TabContent>
               </TabMenu.Body>
             </TabMenu>
           </TabMenu.Group>
