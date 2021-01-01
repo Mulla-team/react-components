@@ -107,10 +107,10 @@ const FormWrap = styled.div `
 
 interface IFormInput {
   firstname : string;
-  lastname : string;
+  lastname?: string;
   email : string;
-  country : string;
-  phonenumber : string
+  phonenumber : string;
+  residence : string
 }
 
 export const CustomerRegistration = () => {
@@ -135,7 +135,7 @@ export const CustomerRegistration = () => {
       profileDetails: {
         email: values.email,
         mobileNumber: values.phonenumber,
-        residence: values.country,
+        residence: values.residence,
         registrationType
       }
     }

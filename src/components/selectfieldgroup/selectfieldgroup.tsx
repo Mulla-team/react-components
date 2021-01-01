@@ -91,7 +91,7 @@ function MenuItemsList(props : {
 
 type TextFieldPropsWeControl = 'id' | 'className' | 'placeholder' | 'fill' | 'error' | 'onChange' | 'appendIcon' | 'required' | 'menuItems';
 
-export function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg, TextFieldPropsWeControl > & {
+function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg, TextFieldPropsWeControl > & {
   disabled?: boolean,
   fill?: boolean,
   error?: string,
@@ -197,6 +197,12 @@ export function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_
         };
       }}/>}
     </div>
+  }
+
+  interface Test {
+    Group : typeof Group;
+    Label : typeof Label;
+    ErrorMessage : typeof ErrorMessage;
   }
 
   // @ts-ignore
