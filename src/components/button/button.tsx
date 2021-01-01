@@ -6,21 +6,23 @@ import {classNames} from '../../utils/class-names'
 
 const DEFAULT_BUTTON_TAG = 'button'
 
-type ButtonRenderPropArg = {
+interface ButtonRenderPropArg extends React.ButtonHTMLAttributes < HTMLButtonElement > {
   loading?: boolean,
   disabled?: boolean,
   fill?: boolean,
   size?: 'lg' | 'sm',
+  type?: 'submit' | 'reset' | 'button',
   variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon'
 }
 
-type ButtonPropsWeControl = 'id' | 'tabIndex' | 'onClick' | 'onKeyUp' | 'onKeyPress' | 'className' | 'variant' | 'size' | 'type' | 'fill';
+type ButtonPropsWeControl = 'id' | 'tabIndex' | 'onClick' | 'onKeyUp' | 'onKeyPress' | 'className' | 'variant' | 'size' | 'type' | 'fill' | 'type';
 
 export function Button < TTag extends React.ElementType = typeof DEFAULT_BUTTON_TAG > (props : Props < TTag, ButtonRenderPropArg, ButtonPropsWeControl > & {
   loading?: boolean,
   disabled?: boolean,
   fill?: boolean,
   size?: 'lg' | 'sm',
+  type?: 'submit' | 'reset' | 'button',
   variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon',
   onClick?: (event : React.MouseEvent < HTMLButtonElement, MouseEvent >) => void,
   className?: ((bag : ButtonRenderPropArg) => string) | string

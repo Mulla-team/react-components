@@ -49,17 +49,35 @@ interface TextFieldRenderPropArg {
   onChange?: (e : React.ChangeEvent < HTMLInputElement >, value : string | number) => void
 };
 
-function ErrorMessage(props : {
-  message: string
+const DEFAULT_ERROR_TEXT_TAG = 'div'
+
+type ErrorPropsWeControl = 'id' | 'ref' | 'message'
+
+function ErrorMessage < TTag extends React.ElementType = typeof DEFAULT_ERROR_TEXT_TAG > (props : Props < TTag, {}, ErrorPropsWeControl > & {
+  message?: string
 }) {
-  return <div className="error-message">
-    <p className='error-message__text'>{props.message}</p>
-  </div>;
+
+  const {
+    id,
+    message,
+    ...passThroughProps
+  } = props;
+
+  const propsWeControl = {
+    id
+  }
+
+  return render({
+    ...passThroughProps,
+    ...propsWeControl,
+    className: `${props.className} error-message`,
+    children: props.children || <p className='error-message__text'>{message}</p>
+  }, {}, DEFAULT_ERROR_TEXT_TAG)
 }
 
 type TextFieldPropsWeControl = 'id' | 'className' | 'placeholder' | 'fill' | 'error' | 'onChange' | 'appendIcon' | 'required' | 'value';
 
-export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg & React.InputHTMLAttributes < HTMLInputElement >, TextFieldPropsWeControl > & {
+function TextFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIELD_TAG > (props : Props < TTag, TextFieldRenderPropArg & React.InputHTMLAttributes < HTMLInputElement >, TextFieldPropsWeControl > & {
   disabled?: boolean,
   fill?: boolean,
   error?: string,
@@ -69,7 +87,7 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
   value?: string | number,
   onChange?: (e : React.ChangeEvent < HTMLInputElement >, value : string | number) => void,
   className?: ((bag : TextFieldRenderPropArg) => string) | string
-}) {
+}, ref?: React.Ref < HTMLInputElement >) {
   // control text visibility for password text fields
   const [isTextVisible,
     setIsTextVisible] = React.useState < boolean | undefined > (undefined);
@@ -99,9 +117,6 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
   const propsBag = React.useMemo < TextFieldRenderPropArg > (() => ({disabled}), [disabled]);
   const propsWeControl = {
     id,
-    ref: groupContext === null
-      ? undefined
-      : groupContext.setTextFieldElement,
     tabIndex: 0,
     placeholder,
     className: classNames(resolvePropValue(className, propsBag), addDefaultClasses({disabled, fill, error})),
@@ -116,6 +131,7 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
       : isTextVisible
         ? 'text'
         : type,
+    ref,
     autoFocus,
     disabled
   };
@@ -125,7 +141,7 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
         ...passThroughProps,
         ...propsWeControl
       }, propsBag, DEFAULT_TEXT_FIELD_TAG)}
-      {(error && error.length > 0) && <ErrorMessage message={error}/>}
+      {(error && typeof(error) === 'string' && error.length > 0) && <ErrorMessage message={error}/>}
       {(type === 'password' && !appendIcon) && <button
         disabled={disabled}
         className='text-field__icon-btn'
@@ -138,8 +154,16 @@ export function TextField < TTag extends React.ElementType = typeof DEFAULT_TEXT
         {appendIcon}
       </button>}
     </div>
-
 }
+
+interface Test {
+  Group : typeof Group;
+  Label : typeof Label;
+  ErrorMessage : typeof ErrorMessage;
+}
+
+// @ts-ignore
+export const TextField = React.forwardRef(TextFieldIN)as Test & typeof TextFieldIN;
 
 type LabelPropsWeControl = 'id' | 'ref' | 'onPointerUp'
 

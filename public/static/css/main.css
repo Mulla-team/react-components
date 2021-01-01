@@ -33,7 +33,14 @@ body {
   --opalBlueTransluscent: rgba(0, 39, 63, 0.42);
   --greenTransluscent: #DCF7E0;
   --naijaGreenTransluscent: rgba(46, 171, 66, 0.42);
-  --glazedOrangeTransluscent: rgba(234, 140, 0, 0.42)
+  --glazedOrangeTransluscent: rgba(234, 140, 0, 0.42);
+  --oceanBlueTransluscent: #D7ECFF;
+}
+
+.pattern-bg {
+  background-image: url('../pattern_bg.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
 .text-grey {
@@ -50,6 +57,10 @@ body {
 
 .text-default {
   color: var(--opalBlue);
+}
+
+.bg-ocean-blue-trans {
+  background-color: var(--oceanBlueTransluscent);
 }
 
 .uc-icon {

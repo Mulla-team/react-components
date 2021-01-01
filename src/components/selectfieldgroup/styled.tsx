@@ -2,17 +2,18 @@ import styled from 'styled-components'
 import {SelectField} from './selectfieldgroup'
 
 const StyledSelectField : typeof SelectField = styled(SelectField)`
-  padding: .8em 1em;
+  padding: .6em .9em;
   --box-shadow-color: #D7ECFF;
   border-radius: ${ (props) => props.theme.inputBorderRadius};
   border: 1px solid ${ (props) => props.theme.inactiveGrey};
   box-shadow: 0px 3px 3px -2px rgba(157, 157, 157, 0.25);
   color: ${ (props) => props.theme.defaultTextColor};
-  font-size: 16px;
+  font-size: .95em;
   background: #FFFFFF;
   transition: all .1s ease-in-out;
   font-family: var(--font-family-regular);
   width: 100%;
+  position: relative;
   &:focus {
     outline: none;
     border-color: ${ (props) => props.theme.textFieldBorder};
@@ -48,7 +49,7 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
     position: absolute;
     background: #FFFFFF;
     right: 1em;
-    top: .85em;
+    top: 1.25em;
     outline: none;
     font-size: 18px;
     &:focus {
@@ -72,11 +73,14 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
   }
   & ~ .menu-list {
     position: absolute;
+    top: 65px;
     width: 100%;
     transform: translateY(-10px);
     box-shadow: 0px 5px 5px -1px rgba(157, 157, 157, 0.25);
     border-radius: 4px;
     overflow: hidden;
+    background: #FFFFFF;
+    z-index: 10;
     .menu-list__item {
       position: relative;
       padding: .9em 1em;
@@ -114,7 +118,7 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
 
 const StyledSelectFieldLabel : typeof SelectField.Label = styled(SelectField.Label)`
   color: ${ (props) => props.theme.defaultTextColor};
-  font-size: 1rem;
+  font-size: .9rem;
 `
 
 StyledSelectField.Label = StyledSelectFieldLabel;

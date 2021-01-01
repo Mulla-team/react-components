@@ -8,26 +8,23 @@ const StyledTabMenu : typeof TabMenu = styled(TabMenu)`
     display: flex;
   }
   .tab-menu-body{
-    background: red;
     position: relative;
   }
   .tab-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
     opacity: 0;
-    z-index: -1;
+    height: 0;
+    overflow: hidden;
     transition: opacity .2s ease-in-out;
-    padding: 20px;
+    position: absolute;
     &.tab-content--active {
+      position: static;
+      display: block;
       opacity: 1;
-      z-index: 1;
+      height: auto;
+      overflow: visible;
     }
   }
   .tab-menu-item {
-    font-size: 0.875rem;
     font-family: var(--font-family-regular);
     color: var(--inactive-color);
     padding: 6px 12px;
@@ -40,10 +37,7 @@ const StyledTabMenu : typeof TabMenu = styled(TabMenu)`
     flex-shrink: 0;
     etter-spacing: 0.02857em;
     transition: background .1s ease-in-out, color .05s ease-out, border-color .1s ease-out;
-    border-bottom: 2px solid transparent;
-    &:hover {
-      background: #F9F9F9;
-    }
+    border-bottom: 2px solid #DFDFDF;
     &:active {
       outline: none;
       box-shadow: none;

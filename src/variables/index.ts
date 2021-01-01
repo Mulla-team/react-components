@@ -23,7 +23,8 @@ export const color : {
   greenTransluscent: '#DCF7E0',
   naijaGreenTransluscent: `rgba(46, 171, 66, 0.42)`,
   glazedOrangeTransluscent: 'rgba(234, 140, 0, 0.42)',
-  orangeTransluscent: '#FFF2DF'
+  orangeTransluscent: '#FFF2DF',
+  navyBlue: '#0B4F79'
 }
 
 export const screenSize : {
@@ -59,6 +60,7 @@ export const theme : {
   darkPrimary: color.darkBlue,
   darkSecondary: color.naijaGreen,
   darkAccent: color.glazedOrange,
+  presentationTextColor: color.navyBlue,
   danger: color.red,
   success: color.green,
   darkDanger: color.darkRed,
