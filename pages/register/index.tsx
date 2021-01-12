@@ -126,7 +126,7 @@ export const CustomerRegistration = () => {
       .add("bg-ocean-blue-trans", "pattern-bg");
   }, [])
 
-  const handleSubmit = async(values : IFormInput, registrationType : 'INDIVUDUAL' | 'BUSINESS') => {
+  const handleSubmit = async(values : IFormInput, registrationType : 'INDIVIDUAL' | 'BUSINESS') => {
     const payload = {
       personalInfo: {
         firstName: values.firstname,
@@ -203,7 +203,7 @@ export const CustomerRegistration = () => {
               </TabMenu.Header>
               <TabMenu.Body>
                 <TabMenu.TabContent className='pt-6' path='/1'>
-                  <IndividualForm onSubmit={(values) => handleSubmit(values, 'INDIVUDUAL')}/>
+                  <IndividualForm onSubmit={(values) => handleSubmit(values, 'INDIVIDUAL')}/>
                 </TabMenu.TabContent>
                 <TabMenu.TabContent className='pt-6' path='/2'>
                   <BusinessForm onSubmit={(values) => handleSubmit(values, 'BUSINESS')}></BusinessForm>

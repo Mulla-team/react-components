@@ -53,10 +53,7 @@ const schema = yup
       .string()
       .required('Phone number is required')
       .max(100),
-    country: yup
-      .string()
-      .required('Country is required')
-      .max(100)
+    // country: yup   .string()   .required('Country is required')   .max(100)
   });
 
 interface Props {
