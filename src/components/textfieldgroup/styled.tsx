@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import {TextField} from './textfieldgroup'
 
 const StyledTextField : typeof TextField = styled(TextField)`
+  appearance: none;
   padding: .6em .9em;
   --box-shadow-color: #D7ECFF;
   border-radius: ${ (props) => props.theme.inputBorderRadius};
