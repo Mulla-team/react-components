@@ -23,7 +23,7 @@ const NavBar = styled.nav `
   background: #FFFFFF;
   .nav-bar__inner {
     width: 100%;
-    padding: 32px 0;
+    padding: 20px 24px;
     max-width: ${props => props.theme.xLargeWindowSize};
     @media(min-width: ${props => props.theme.screenSize.tablet}) {
       padding: 20px 32px;
@@ -34,9 +34,9 @@ const NavBar = styled.nav `
 const InnerWrap = styled.div `
   width: 100%;
   max-width: ${props => props.theme.xLargeWindowSize};
-  padding: 134px 0;
+  padding: 60px 0;
   @media(min-width: ${props => props.theme.screenSize.tablet}) {
-    padding: 100px 32px 96px;
+    padding: 80px 32px 96px;
   }
 `
 
@@ -99,7 +99,6 @@ const FormWrap = styled.div `
   box-shadow: 0px 5px 8px -2px rgba(157, 157, 157, 0.25);
   align-self: start;
   @media(min-width: ${props => props.theme.screenSize.tablet}) {
-    margin-left: 60px;
     border-radius: 7px;
     padding: 41px;
   }
@@ -116,7 +115,7 @@ interface IFormInput {
 export const CustomerRegistration = () => {
 
   const [registerUser,
-    registerUserInfo] = useRegisterUser()
+    {isLoading}] = useRegisterUser()
 
   React.useEffect(() => {
     // @ts-ignore
@@ -149,8 +148,8 @@ export const CustomerRegistration = () => {
         <Image src="/static/mulla-logo-01.svg" alt="wallet" width={118} height={32}/>
       </div>
     </NavBar>
-    <InnerWrap className='flex flex-col sm:flex-row'>
-      <div className="w-100 sm:w-1/2 px-6 sm:px-0">
+    <InnerWrap className='flex flex-col lg:flex-row'>
+      <div className="w-full lg:w-1/2 px-6 lg:px-0">
         <HeadText>Enjoy borderless transactions, Join Mulla today!</HeadText>
         <SubHeadText className='mt-3 sm:mt-6'>Send and recieve money across Africa</SubHeadText>
         <div className="flex mt-12">
@@ -193,8 +192,8 @@ export const CustomerRegistration = () => {
           </div>
         </div>
       </div>
-      <div className="w-100 sm:w-1/2 flex mt-10 sm:mt-0">
-        <FormWrap className='flex-1'>
+      <div className="w-full lg:w-1/2 flex mt-10 lg:mt-0">
+        <FormWrap className='flex-1 lg:m-14'>
           <TabMenu.Group>
             <TabMenu>
               <TabMenu.Header className='sm:px-4'>
@@ -203,10 +202,10 @@ export const CustomerRegistration = () => {
               </TabMenu.Header>
               <TabMenu.Body>
                 <TabMenu.TabContent className='pt-6' path='/1'>
-                  <IndividualForm onSubmit={(values) => handleSubmit(values, 'INDIVIDUAL')}/>
+                  <IndividualForm isLoading={isLoading} onSubmit={(values) => handleSubmit(values, 'INDIVIDUAL')}/>
                 </TabMenu.TabContent>
                 <TabMenu.TabContent className='pt-6' path='/2'>
-                  <BusinessForm onSubmit={(values) => handleSubmit(values, 'BUSINESS')}></BusinessForm>
+                  <BusinessForm isLoading={isLoading} onSubmit={(values) => handleSubmit(values, 'BUSINESS')}></BusinessForm>
                 </TabMenu.TabContent>
               </TabMenu.Body>
             </TabMenu>
@@ -217,4 +216,4 @@ export const CustomerRegistration = () => {
   </OuterWrap>
 }
 
-export default CustomerRegistration;
+export default CustomerRegistration

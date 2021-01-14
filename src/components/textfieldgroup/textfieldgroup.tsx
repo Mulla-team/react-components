@@ -143,6 +143,7 @@ function TextFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FIEL
       }, propsBag, DEFAULT_TEXT_FIELD_TAG)}
       {(error && typeof(error) === 'string' && error.length > 0) && <ErrorMessage message={error}/>}
       {(type === 'password' && !appendIcon) && <button
+        type='button'
         disabled={disabled}
         className='text-field__icon-btn'
         onClick={() => setIsTextVisible(!isTextVisible)}>
