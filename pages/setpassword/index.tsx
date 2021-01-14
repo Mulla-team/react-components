@@ -21,7 +21,11 @@ const FormWrap = styled.div `
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 80px;
+  padding: 0 24px;
+  @media(min-width: ${props => props.theme.screenSize.tablet}) {
+    padding: 0;
+  }
 `
 
 const TitleText = styled.h4 `
