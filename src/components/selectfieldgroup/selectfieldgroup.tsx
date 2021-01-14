@@ -46,6 +46,7 @@ interface TextFieldRenderPropArg {
   disabled?: boolean,
   error?: string,
   fill?: boolean,
+  search?: boolean,
   onChange?: (e : React.ChangeEvent < HTMLInputElement >, value : string | number | boolean) => void
 };
 
@@ -102,7 +103,8 @@ function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FI
   menuItems?: MenuItem[],
   value?: string | number | boolean,
   onChange?: (e : React.ChangeEvent < HTMLInputElement >, value : string | number | boolean) => void,
-  className?: ((bag : TextFieldRenderPropArg) => string) | string
+  className?: ((bag : TextFieldRenderPropArg) => string) | string,
+  search?: boolean
 }, ref?: React.Ref < HTMLInputElement >) {
   const {
     disabled,
@@ -115,6 +117,7 @@ function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FI
     type = 'text',
     menuItems,
     value,
+    search = false,
     ...passThroughProps
   } = props;
 
@@ -156,10 +159,10 @@ function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FI
     tabIndex: 0,
     placeholder,
     className: classNames(resolvePropValue(className, propsBag), addDefaultClasses({disabled, fill, error})),
-    onChange: (e : React.ChangeEvent < HTMLInputElement >) => {
+    onChange: search ?  (e : React.ChangeEvent < HTMLInputElement >) => {
       setChangeEvent(e);
       setFilterValue(e.target.value);
-    },
+    } : onChange,
     required,
     'aria-labelledby': groupContext
       ?.label
@@ -170,7 +173,7 @@ function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FI
       window.setTimeout(() => setIsMenuVisible(false), 200);
     },
     ref,
-    value: filterValue,
+    value: search ? filterValue : value,
     autoComplete: 'off',
     onFocus: () => {
       setIsMenuVisible(true)
@@ -179,14 +182,19 @@ function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FI
 
   return <div className='select-field-container relative'>
       {render({
+        children: <React.Fragment>
+          {menuItems?.map((el, index) => {
+            return <option value={`${el.value}`}>{el.label}</option>
+          })}
+        </React.Fragment>,
         ...passThroughProps,
         ...propsWeControl
-      }, propsBag, DEFAULT_TEXT_FIELD_TAG)}
+      }, propsBag, search ? DEFAULT_TEXT_FIELD_TAG: 'select')}
       {(error && error.length > 0) && <ErrorMessage message={error}/>}
       <button disabled={disabled} className='text-field__icon-btn'>
         <i className="uc-icon text-grey">&#xe81d;</i>
       </button>
-      {(isMenuVisible) && <MenuItemsList
+      {(isMenuVisible && search) && <MenuItemsList
         searchValue={filterValue}
         menuItems={menuItems || []}
         selectedValue={value}

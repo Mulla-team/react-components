@@ -14,6 +14,11 @@ const StyledSelectField : typeof SelectField = styled(SelectField)`
   font-family: var(--font-family-regular);
   width: 100%;
   position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  min-height: 39px;
   &:focus {
     outline: none;
     border-color: ${ (props) => props.theme.textFieldBorder};

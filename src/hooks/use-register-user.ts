@@ -2,7 +2,7 @@ import * as React from 'react'
 import axios from 'axios'
 import {v1 as uuid} from 'uuid'
 
-interface registerState {
+interface RegisterState {
   isIdle?: boolean,
   isLoading?: boolean,
   isSuccess?: boolean,
@@ -11,9 +11,9 @@ interface registerState {
   data?: any
 }
 
-export default function useRegisterUser() {
+export default function useRegisterUser(): RegisterState[] {
   const [state,
-    setState] = React.useReducer((_ : any, action : registerState) => action, {isIdle: true});
+    setState] = React.useReducer((_ : any, action : RegisterState) => action, {isIdle: true});
   const mutate = React.useCallback(async(values) => {
     setState({isLoading: true})
     try {
@@ -33,6 +33,6 @@ export default function useRegisterUser() {
       setState({isError: true, error})
     }
   }, [])
-
+  // @ts-ignore
   return [mutate, state]
 }

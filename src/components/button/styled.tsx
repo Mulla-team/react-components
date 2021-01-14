@@ -10,7 +10,7 @@ const StyledButton : typeof Button = styled(Button)`
   border-radius: ${ (props) => props.theme.borderRadius};
   border: none;
   padding: .8em 2em .85em 2em;
-  font-size: 14px;
+  font-size: 15px;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
   color: #FFFFFF;
   font-family: var(--font-family-regular);

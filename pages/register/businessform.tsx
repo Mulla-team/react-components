@@ -6,9 +6,8 @@ import Button from '../../src/components/button'
 import {useForm} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
 import classNames from 'classnames'
-import {useQuery, useMutation} from 'react-query'
 import Link from 'next/link'
-import * as yup from "yup"
+import * as yup from 'yup'
 
 const ArrowIconWrap = styled.span `
   svg {
@@ -17,12 +16,28 @@ const ArrowIconWrap = styled.span `
   }
 `
 
-const LoginLinkText = styled.p `
+const LinkText = styled.p `
   font-size: 15px;
   color: ${props => props.theme.defaultTextColor};
   span {
     color: ${props => props.theme.primary};
-    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline
+    }
+  }
+`
+
+const TermsText = styled.p `
+  font-size: 13.5px;
+  color: ${props => props.theme.iconGrey};
+  line-height: 22px;
+  span {
+    color: ${props => props.theme.primary};
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline
+    }
   }
 `
 
@@ -56,7 +71,8 @@ const schema = yup
   });
 
 interface Props {
-  onSubmit : (values : IFormInput) => void
+  onSubmit : (values : IFormInput) => void,
+  isLoading?: boolean
 }
 
 export const IndividualRegiterForm = (props : Props) => {
@@ -66,16 +82,20 @@ export const IndividualRegiterForm = (props : Props) => {
 
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)});
 
-  const onSubmit = (data : any) => {
+  const onSubmit = React.useCallback((data : any) => {
     const {onSubmit} = props
-    onSubmit(data as IFormInput)
-  };
+    const payload = {
+      ...data,
+      residence: `${country||'RWA'}`
+    }
+    onSubmit(payload as IFormInput)
+  }, [country]);
 
-  return <form onSubmit={onSubmit} className="w-100 flex flex-col">
-    <div className='flex flex-col w-100'>
+  return <form onSubmit={onSubmit} className="w-full flex flex-col">
+    <div className='flex flex-col w-full'>
       <TextField.Group>
         <div
-          className={classNames('w-100 mb-3', {
+          className={classNames('w-full mb-3', {
           'sm:mb-2': !errors.firstname,
           'sm:mb-0': errors.firstname
         })}>
@@ -84,7 +104,7 @@ export const IndividualRegiterForm = (props : Props) => {
             ref={register({required: true, minLength: 20})}
             name='firstname'
             autoFocus={true}
-            className='mt-3 w-100'
+            className='mt-3 w-full'
             placeholder='Enter business name'
             error={errors.firstname
             ? errors.firstname.message
@@ -95,7 +115,7 @@ export const IndividualRegiterForm = (props : Props) => {
     <div className='flex flex-col sm:flex-row sm:mt-2'>
       <TextField.Group>
         <div
-          className={classNames('w-100 sm:w-1/2 pr-0 sm:pr-2 mb-3', {
+          className={classNames('w-full sm:w-1/2 pr-0 sm:pr-2 mb-3', {
           'sm:mb-2': !errors.email,
           'sm:mb-0': errors.email
         })}>
@@ -105,7 +125,7 @@ export const IndividualRegiterForm = (props : Props) => {
             name='email'
             type='email'
             className='mt-3'
-            placeholder='jon@stark.com'
+            placeholder='jon@snow.com'
             error={errors.email
             ? errors.email.message
             : undefined}/>
@@ -113,7 +133,7 @@ export const IndividualRegiterForm = (props : Props) => {
       </TextField.Group>
       <TextField.Group>
         <div
-          className={classNames('w-100 sm:w-1/2 pl-0 sm:pl-2 mb-3', {
+          className={classNames('w-full sm:w-1/2 pl-0 sm:pl-2 mb-3', {
           'sm:mb-2': !errors.phonenumber,
           'sm:mb-0': errors.phonenumnber
         })}>
@@ -131,7 +151,7 @@ export const IndividualRegiterForm = (props : Props) => {
     </div>
     <SelectField.Group>
       <div
-        className={classNames('w-100 sm:mt-2 mb-2', {
+        className={classNames('w-full sm:mt-2 mb-2', {
         'sm:mb-2': !errors.country,
         'sm:mb-0': errors.country
       })}>
@@ -162,10 +182,11 @@ export const IndividualRegiterForm = (props : Props) => {
           : undefined}/>
       </div>
     </SelectField.Group>
+    <TermsText className='mt-5 w-full'>By signing up, I accept the Mulla &nbsp;<span>Terms of Service</span> and acknowledge the &nbsp;<span>Privacy Policy</span>.</TermsText>
     <Button
       onClick={handleSubmit(onSubmit)}
       type='submit'
-      loading={false}
+      loading={props.isLoading}
       className='mt-4 flex items-center'
       fill>Sign up
       <ArrowIconWrap className='ml-2'>
@@ -181,9 +202,9 @@ export const IndividualRegiterForm = (props : Props) => {
         </svg>
       </ArrowIconWrap>
     </Button>
-    <LoginLinkText className='mt-5 w-100 text-center'>Already have an account?
-      <span>&nbsp;Log in</span>
-    </LoginLinkText>
+    <LinkText className='mt-5 w-full text-center'>Already have an account?
+    &nbsp;<span>Log in</span>
+    </LinkText>
   </form>
 }
 
