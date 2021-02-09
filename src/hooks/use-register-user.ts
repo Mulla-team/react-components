@@ -17,7 +17,7 @@ export default function useRegisterUser(): RegisterState[] {
   const mutate = React.useCallback(async(values) => {
     setState({isLoading: true})
     try {
-      const data = await axios.post('http://li2142-101.members.linode.com:8061/customer/onboard', {
+      const data = await axios.post('https://li2142-101.members.linode.com:8061/customer/onboard', {
         header: {
           'requestId': uuid(),
           'command': 'CREATE_CUSTOMER'
@@ -27,10 +27,21 @@ export default function useRegisterUser(): RegisterState[] {
         headers: {
           tenantCode: 'mula'
         }
-      }).then((res) => res.data)
+      })
       setState({isSuccess: true, data})
     } catch (error) {
-      setState({isError: true, error})
+      if (error.response && error.response.data && error.response.data.payload) {
+        const {message, code} = error.response.data.payload
+        setState({isError: true, error: {
+          code,
+          message: `<span>${message}</span>`
+        }});
+      } else {
+        const message =  (navigator && navigator.onLine) ? `<span>An error has occured, please contact our customer support team at <a mailto='mulla@support.io'>mulla@support.io</a></span>` : '<span>Seems like you are not connected to the internet.</span></br> <span>Please check you connection and try again.</span>'
+        setState({isError: true, error: {
+          message
+        }});
+      }
     }
   }, [])
   // @ts-ignore

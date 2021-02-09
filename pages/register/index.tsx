@@ -4,11 +4,11 @@ import TabMenu from '../../src/components/tabMenu/styled'
 import IndividualForm from './individualform'
 import BusinessForm from './businessform'
 import Image from 'next/image'
-
 import useRegisterUser from '../../src/hooks/use-register-user'
+import { useRouter } from 'next/router'
 
 const OuterWrap = styled.div `
-  min-height: 100vh;
+  min-height: 70vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -94,7 +94,7 @@ const IlluCtn = styled.div `
 
 const FormWrap = styled.div `
   width: 100px;
-  padding: 32px;
+  padding: 20px;
   background: #FFFFFF;
   box-shadow: 0px 5px 8px -2px rgba(157, 157, 157, 0.25);
   align-self: start;
@@ -115,7 +115,17 @@ interface IFormInput {
 export const CustomerRegistration = () => {
 
   const [registerUser,
-    {isLoading}] = useRegisterUser()
+    {isLoading, isError, isSuccess, error}] = useRegisterUser()
+  const [errorState, setErrorState] = React.useState<{message: string, code?: number} | null>(null)
+  const router = useRouter()
+
+  React.useEffect(() => {
+    if (isError) {
+      setErrorState(error)
+    } else if (errorState) {
+      setErrorState(null)
+    }
+  }, [isError]);
 
   React.useEffect(() => {
     // @ts-ignore
@@ -124,6 +134,12 @@ export const CustomerRegistration = () => {
       .classList
       .add("bg-ocean-blue-trans", "pattern-bg");
   }, [])
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      router.push('/register/success')
+    }
+  }, [isSuccess])
 
   const handleSubmit = async(values : IFormInput, registrationType : 'INDIVIDUAL' | 'BUSINESS') => {
     const payload = {
@@ -137,7 +153,7 @@ export const CustomerRegistration = () => {
         residence: values.residence,
         registrationType
       }
-    }
+    } 
     //@ts-ignore
     await registerUser(payload);
   }
@@ -196,16 +212,16 @@ export const CustomerRegistration = () => {
         <FormWrap className='flex-1 lg:m-14'>
           <TabMenu.Group>
             <TabMenu>
-              <TabMenu.Header className='sm:px-4'>
+              <TabMenu.Header onClick={() => setErrorState(null)} className='sm:px-4'>
                 <TabMenu.TabMenuItem className='w-1/2 text-lg' path='/1' isActive={true}>Individual</TabMenu.TabMenuItem>
                 <TabMenu.TabMenuItem className='w-1/2 text-lg' path='/2'>Business</TabMenu.TabMenuItem>
               </TabMenu.Header>
               <TabMenu.Body>
                 <TabMenu.TabContent className='pt-6' path='/1'>
-                  <IndividualForm isLoading={isLoading} onSubmit={(values) => handleSubmit(values, 'INDIVIDUAL')}/>
+                  <IndividualForm isError={isError} error={errorState} isLoading={isLoading} onSubmit={(values) => handleSubmit(values, 'INDIVIDUAL')}/>
                 </TabMenu.TabContent>
                 <TabMenu.TabContent className='pt-6' path='/2'>
-                  <BusinessForm isLoading={isLoading} onSubmit={(values) => handleSubmit(values, 'BUSINESS')}></BusinessForm>
+                  <BusinessForm isError={isError} error={errorState} isLoading={isLoading} onSubmit={(values) => handleSubmit(values, 'BUSINESS')}></BusinessForm>
                 </TabMenu.TabContent>
               </TabMenu.Body>
             </TabMenu>

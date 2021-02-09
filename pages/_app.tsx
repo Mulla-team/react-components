@@ -4,6 +4,7 @@ import {ReactQueryDevtools} from 'react-query/devtools'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {theme} from '@Variables'
 import {ThemeProvider} from "styled-components"
+import FooterLarge from '../src/components/footerlarge'
 
 const queryClient = new QueryClient()
 
@@ -12,9 +13,11 @@ function MyApp < T extends React.FunctionComponent > ({Component, pageProps} : {
   pageProps: any
 }) {
   return <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}><Component {...pageProps}/></ThemeProvider>
-      < ReactQueryDevtools initialIsOpen/>
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}><Component {...pageProps}/>
+    <FooterLarge/>
+    </ThemeProvider>
+    < ReactQueryDevtools initialIsOpen/>
+  </QueryClientProvider>
 }
 
 export default MyApp

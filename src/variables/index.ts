@@ -43,12 +43,13 @@ export const screenSize : {
 export const size : {
   [s : string] : string
 } = {
+  xXLargeWindowSize: '1400px',
   xLargeWindowSize: '1300px',
   largeWindowSize: '1000px',
   midWindowSize: '650px',
   borderWidth: '1px',
-  borderRadius: '3px',
-  inputBorderRadius: '4px'
+  borderRadius: '.375rem',
+  inputBorderRadius: '.375rem'
 }
 
 export const theme : {

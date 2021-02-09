@@ -191,7 +191,7 @@ function SelectFieldIN < TTag extends React.ElementType = typeof DEFAULT_TEXT_FI
         ...propsWeControl
       }, propsBag, search ? DEFAULT_TEXT_FIELD_TAG: 'select')}
       {(error && error.length > 0) && <ErrorMessage message={error}/>}
-      <button disabled={disabled} className='text-field__icon-btn'>
+      <button disabled={!search} className='text-field__icon-btn'>
         <i className="uc-icon text-grey">&#xe81d;</i>
       </button>
       {(isMenuVisible && search) && <MenuItemsList

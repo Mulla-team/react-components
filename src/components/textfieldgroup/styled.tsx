@@ -9,15 +9,27 @@ const StyledTextField : typeof TextField = styled(TextField)`
   border: 1px solid ${ (props) => props.theme.inactiveGrey};
   box-shadow: 0px 3px 3px -2px rgba(157, 157, 157, 0.25);
   color: ${ (props) => props.theme.defaultTextColor};
-  font-size: .95em;
+  font-size: .98em;
   background: #FFFFFF;
   transition: all .1s ease-in-out;
   font-family: var(--font-family-regular);
   width: 100%;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100px;
+    height: 100px;
+    border: 30px solid red;
+    border-radius: 3px;
+    background: red;
+  }
   &:focus {
     outline: none;
     border-color: ${ (props) => props.theme.textFieldBorder};
-    box-shadow: 0 0 0 2px var(--box-shadow-color);
+    box-shadow: 0 0 0 3px var(--box-shadow-color);
   }
   &.text-field--fill {
     width: 100%;
@@ -26,7 +38,7 @@ const StyledTextField : typeof TextField = styled(TextField)`
     border-color: ${ (props) => props.theme.danger};
     --box-shadow-color: ${ (props) => props.theme.dangerTransluscent};
     &:hover {
-      box-shadow: 0 0 0 2px var(--box-shadow-color);
+      box-shadow: 0 0 0 3px var(--box-shadow-color);
     }
   }
   &[type=password] {
@@ -43,6 +55,7 @@ const StyledTextField : typeof TextField = styled(TextField)`
       margin: 0;
       font-size: 14px;
       color: ${ (props) => props.theme.danger};
+      line-height: 22px;
     }
   }
   & ~ button.text-field__icon-btn {

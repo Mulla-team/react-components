@@ -103,7 +103,7 @@ body {
 .modal-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: all 100ms ease-in-out, ;
+  transition: all 80ms ease-in-out, ;
 }
 
 .modal-exit {
@@ -114,5 +114,29 @@ body {
 .modal-exit-active {
   opacity: 0.01;
   transform: translateY(20px);
-  transition: all 100ms ease-in;
+  transition: all 80ms ease-in;
+}
+
+/* Notification box animation rules */
+.notification-box-transform {
+  transform: scaleY(0) scaleX(.8);
+}
+
+
+.notification-box-transform-enter {
+  transform: scaleY(0.5) scaleX(.8);
+}
+
+.notification-box-transform-enter-active {
+  transform: scaleY(1) scaleX(1);
+  transition: all 80ms;
+}
+
+.notification-box-transform-exit {
+  transform: scaleY(1) scaleX(1);
+}
+
+.notification-box-transform-exit-active {
+  transform: scaleY(0.1) scaleX(.8);
+  transition: all 80ms;
 }

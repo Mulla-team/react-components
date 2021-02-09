@@ -8,6 +8,8 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import classNames from 'classnames'
 import Link from 'next/link'
 import * as yup from 'yup'
+import NotificationBox from '../../src/components/notificationbox'
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 const ArrowIconWrap = styled.span `
   svg {
@@ -72,18 +74,22 @@ const schema = yup
 
 interface Props {
   onSubmit : (values : IFormInput) => void,
-  isLoading?: boolean
+  isLoading?: boolean,
+  isError?: boolean,
+  error?: {
+    message: string,
+    code?: number
+  } | null
 }
 
 export const IndividualRegiterForm = (props : Props) => {
-
+  const {onSubmit, isError, error} = props
   const [country,
     setCountry] = React.useState < string | undefined > (undefined)
 
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)});
 
-  const onSubmit = React.useCallback((data : any) => {
-    const {onSubmit} = props
+  const submit = React.useCallback((data : any) => {
     const payload = {
       ...data,
       residence: `${country||'RWA'}`
@@ -91,7 +97,12 @@ export const IndividualRegiterForm = (props : Props) => {
     onSubmit(payload as IFormInput)
   }, [country]);
 
-  return <form onSubmit={onSubmit} className="w-full flex flex-col">
+  return <form onSubmit={submit} className="w-full flex flex-col">
+    <TransitionGroup>
+    {isError && error &&  error.message && <CSSTransition classNames="notification-box-transform" timeout={100}>
+      <NotificationBox dangerouslySetInnerHTML={{__html: error.message}} className='mb-6'/>
+      </CSSTransition>}
+    </TransitionGroup>
     <div className='flex flex-col w-full'>
       <TextField.Group>
         <div
