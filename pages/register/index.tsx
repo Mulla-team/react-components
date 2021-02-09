@@ -165,7 +165,7 @@ export const CustomerRegistration = () => {
       </div>
     </NavBar>
     <InnerWrap className='flex flex-col lg:flex-row'>
-      <div className="w-full lg:w-1/2 px-6 lg:px-0">
+      <div className="w-full lg:w-1/2 px-4 lg:px-0">
         <HeadText>Enjoy borderless transactions, Join Mulla today!</HeadText>
         <SubHeadText className='mt-3 sm:mt-6'>Send and recieve money across Africa</SubHeadText>
         <div className="flex mt-12">
