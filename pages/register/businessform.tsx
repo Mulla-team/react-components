@@ -1,14 +1,14 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import TextField from '../../src/components/textfieldgroup'
-import SelectField from '../../src/components/selectfieldgroup/styled'
-import Button from '../../src/components/button'
+import TextField from '@Components/textfieldgroup'
+import SelectField from '@Components/selectfieldgroup/styled'
+import Button from '@Components/button'
 import {useForm} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
 import classNames from 'classnames'
 import Link from 'next/link'
 import * as yup from 'yup'
-import NotificationBox from '../../src/components/notificationbox'
+import NotificationBox from '@Components/notificationbox'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 const ArrowIconWrap = styled.span `
@@ -197,6 +197,7 @@ export const IndividualRegiterForm = (props : Props) => {
     <Button
       onClick={handleSubmit(onSubmit)}
       type='submit'
+      variant='dark'
       loading={props.isLoading}
       className='mt-4 flex items-center'
       fill>Sign up
@@ -214,7 +215,7 @@ export const IndividualRegiterForm = (props : Props) => {
       </ArrowIconWrap>
     </Button>
     <LinkText className='mt-5 w-full text-center'>Already have an account?
-    &nbsp;<span>Log in</span>
+    &nbsp;<Link href='/signin'><span>Log in</span></Link>
     </LinkText>
   </form>
 }

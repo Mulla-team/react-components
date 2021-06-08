@@ -59,34 +59,34 @@ const DownloadAppButton = styled.span `
 export default () => {
   return <OuterWrap>
     <InnerWrap>
-      <div className="w-full flex flex-col lg:flex-row justify-between">
-        <div className="flex flex-col w-1/4">
-          <FooterHeadText className='mb-10'>Company and team</FooterHeadText>
+      <div className="w-full flex flex-wrap lg:flex-nowrap lg:justify-between px-4 lg:px-0">
+        <div className="flex flex-col w-1/3 lg:w1/4 mr-10 lg:mr-0">
+          <FooterHeadText className='mb-8'>Company</FooterHeadText>
           <ul>
-            <FooterListItem><Link href='#'>Compony and team</Link></FooterListItem>
+            <FooterListItem><Link href='#'>Company & team</Link></FooterListItem>
             <FooterListItem><Link href='#'>Carreers</Link></FooterListItem>
             <FooterListItem><Link href='#'>Afilliates and partnership</Link></FooterListItem>
           </ul>
         </div>
-        <div className="flex flex-col w-1/4">
-          <FooterHeadText className='mb-4'>Help and support</FooterHeadText>
-          <ul>
-            <FooterListItem><Link href='#'>Help center</Link></FooterListItem>
-          </ul>
-        </div>
-        <div className="flex flex-col w-1/4">
-          <FooterHeadText className='mb-4'>Reach out</FooterHeadText>
+        <div className="flex flex-col w-1/3 lg:w1/4">
+          <FooterHeadText className='mb-8'>Reach out</FooterHeadText>
           <ul>
             <FooterListItem><Link href='#'>For partnerships & general enquires</Link></FooterListItem>
             <FooterListItem><Link href='#'>hello@mulla.app</Link></FooterListItem>
           </ul>
         </div>
+        <div className="flex flex-col w-1/3 lg:w1/4 mt-8 lg:mt-0">
+          <FooterHeadText className='mb-8'>Help</FooterHeadText>
+          <ul>
+            <FooterListItem><Link href='#'>Help center</Link></FooterListItem>
+          </ul>
+        </div>
       </div>
-      <div className="flex mt-10">
+      <div className="flex mt-10 px-4 lg:px-0">
         <DownloadAppButton className='mr-4'><Image src="/static/appstore.svg" alt="arrow" width={120} height={34}/></DownloadAppButton>
         <DownloadAppButton><Image src="/static/googleplay.svg" alt="arrow" width={120} height={34}/></DownloadAppButton>
       </div>
-      <div className="flex mt-10">
+      <div className="flex mt-10 px-4 lg:px-0">
         <FooterBottomLink><a href="#">@Mulla</a></FooterBottomLink>
         <FooterBottomLink className='ml-6'><a href="#">Terms of Service</a></FooterBottomLink>
         <FooterBottomLink className='ml-6'><a href="#">Privacy Policy</a></FooterBottomLink>

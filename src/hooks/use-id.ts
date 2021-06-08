@@ -13,7 +13,7 @@ let state = {
 }
 let id = 0
 function generateId() {
-  return++ id
+  return ++id
 }
 
 export function useId() {

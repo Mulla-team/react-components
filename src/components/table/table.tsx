@@ -63,7 +63,7 @@ const DEFAULT_TABLE_HEADER_TAG = 'th'
 
 type TableHeaderPropsWeControl = 'id' | 'className' | 'ref'
 
-export function Th < TTag extends React.ElementType = typeof DEFAULT_TABLE_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLTableHeaderCellElement >, TableHeaderPropsWeControl > & {
+export function Th < TTag extends React.ElementType = typeof DEFAULT_TABLE_HEADER_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLTableHeaderCellElement >, TableHeaderPropsWeControl > & {
   id?: string,
   className?: string
 }) {

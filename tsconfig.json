@@ -12,6 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "downlevelIteration": true,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
@@ -34,11 +35,11 @@
       "@Styled/*": ["src/styled/*"],
       "@Test/*": ["test/*"],
       "@Variables": ["src/variables"],
-      "@Variables/*": ["src/variables*"],
+      "@Variables/*": ["src/variables/*"],
       "@Hooks": ["src/hooks"],
-      "@Hooks/*": ["src/hooks*"],
+      "@Hooks/*": ["src/hooks/*"],
       "@Utils": ["src/utils"],
-      "@Utils/*": ["src/utils*"]
+      "@Utils/*": ["src/utils/*"]
     }
   },
   "exclude": [

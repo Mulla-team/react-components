@@ -7,7 +7,6 @@ interface UserResponseData {
 }
 
 const completeRegistration = async (userData: {username: string, password: string, customerNumber: string}) => {
-  console.log('HDHDHD', userData);
   const {data: authData} = await axios.post('https://li2142-101.members.linode.com:8061/user/login', {
   header: {
     'client': 'Statement',

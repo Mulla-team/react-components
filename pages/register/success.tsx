@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
-import Button from '../../src/components/button'
+import Button from '@Components/button'
 
 const OuterWrap = styled.div `
   min-height: 70vh;

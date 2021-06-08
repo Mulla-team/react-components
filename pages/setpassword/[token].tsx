@@ -144,45 +144,45 @@ export const SetPassword = () => {
             </TransitionGroup>
             <form className="w-full flex flex-col mt-6">
                 <div className='flex flex-col w-full'>
-                    <TextField.Group>
-                        <div
-                        className={classNames('w-full mb-3', {
-                        'sm:mb-2': !errors.username,
-                        'sm:mb-0': errors.username
-                        })}>
-                        <TextField.Label>Username *</TextField.Label>
-                        <TextField
-                            ref={register({required: true})}
-                            name='username'
-                            type='text'
-                            autoFocus={true}
-                            className='mt-3 w-full'
-                            placeholder='Set a username'
-                            error={errors.username
-                            ? errors.username.message
-                            : undefined}/>
-                        </div>
-                    </TextField.Group>
+                  <TextField.Group>
+                    <div
+                    className={classNames('w-full mb-3', {
+                    'sm:mb-2': !errors.username,
+                    'sm:mb-0': errors.username
+                    })}>
+                    <TextField.Label>Username *</TextField.Label>
+                    <TextField
+                        ref={register({required: true})}
+                        name='username'
+                        type='text'
+                        autoFocus={true}
+                        className='mt-3 w-full'
+                        placeholder='Set a username'
+                        error={errors.username
+                        ? errors.username.message
+                        : undefined}/>
+                    </div>
+                  </TextField.Group>
                 </div>
                 <div className='mt-2'>
-                <TextField.Group>
-                        <div
-                        className={classNames('w-full mb-3', {
-                        'sm:mb-2': !errors.password,
-                        'sm:mb-0': errors.password
-                        })}>
-                        <TextField.Label>Password *</TextField.Label>
-                        <TextField
-                            ref={register({required: true})}
-                            name='password'
-                            type='password'
-                            className='mt-3 w-full'
-                            placeholder='Create password'
-                            error={errors.password
-                            ? errors.password.message
-                            : undefined}/>
-                        </div>
-                    </TextField.Group>
+                  <TextField.Group>
+                    <div
+                    className={classNames('w-full mb-3', {
+                    'sm:mb-2': !errors.password,
+                    'sm:mb-0': errors.password
+                    })}>
+                    <TextField.Label>Password *</TextField.Label>
+                    <TextField
+                        ref={register({required: true})}
+                        name='password'
+                        type='password'
+                        className='mt-3 w-full'
+                        placeholder='Create password'
+                        error={errors.password
+                        ? errors.password.message
+                        : undefined}/>
+                    </div>
+                  </TextField.Group>
                 </div>
                 <div>
                     <TermsText className='mt-5 w-full'>By signing up, I accept the Mulla &nbsp;<span>Terms of Service</span> and acknowledge the &nbsp;<span>Privacy Policy</span>.</TermsText>

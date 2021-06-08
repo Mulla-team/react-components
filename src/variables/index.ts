@@ -20,6 +20,7 @@ export const color : {
   ashGrey: '#B2BFCF',
   ashGreyDark: '#A2AFBF',
   opalBlueTransluscent: 'rgba(0, 39, 63, 0.42)',
+  opalBlueDark: '#011521',
   greenTransluscent: '#DCF7E0',
   naijaGreenTransluscent: `rgba(46, 171, 66, 0.42)`,
   glazedOrangeTransluscent: 'rgba(234, 140, 0, 0.42)',
@@ -35,7 +36,6 @@ export const screenSize : {
   mobileL: '425px',
   tablet: '768px',
   laptop: '1028px',
-
   laptopL: '1440px',
   desktop: '2560px'
 };
@@ -55,13 +55,13 @@ export const size : {
 export const theme : {
   [s : string] : any
 } = {
-  primary: color.blue,
+  primary: color.lightGrey,
   secondary: color.leafGreen,
   accent: color.orange,
-  darkPrimary: color.darkBlue,
+  darkPrimary: color.glazedOrangeTransluscent,
   darkSecondary: color.naijaGreen,
   darkAccent: color.glazedOrange,
-  presentationTextColor: color.navyBlue,
+  presentationTextColor: '#FFFFFF',
   danger: color.red,
   success: color.green,
   darkDanger: color.darkRed,
@@ -75,6 +75,9 @@ export const theme : {
   inactiveGrey: color.asphaltGray,
   textFieldBorder: color.odeurYaBlue,
   defaultTextColor: color.opalBlue,
+  dark: color.opalBlue,
+  darkTransluscent: color.opalBlueTransluscent,
+  darkest: color.opalBlueDark,
   iconGrey: color.grey,
   borderedButtonBg: color.ashGrey,
   borderedButtonFocusBg: color.ashGreyDark,

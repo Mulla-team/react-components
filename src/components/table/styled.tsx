@@ -55,4 +55,4 @@ const StyledTable : typeof Table = styled(Table)`
   }
 `
 
-export default StyledTable;
+export default StyledTable

@@ -70,7 +70,7 @@ const DEFAULT_MODAL_TAG = React.Fragment;
 type ModalPropsWeControl = 'id' | 'className' | 'ref' | 'isVisible' | 'onHide'
 
 export function Modal < TTag extends React.ElementType = typeof DEFAULT_MODAL_TAG > (props : Props < TTag, React.HTMLAttributes < HTMLDivElement >, ModalPropsWeControl > & {
-  isVisible: boolean,
+  isVisible?: boolean,
   onHide: () => void,
   size?: 'sm' | 'lg' | 'xl'
 }) {
@@ -111,11 +111,11 @@ export function Modal < TTag extends React.ElementType = typeof DEFAULT_MODAL_TA
       {props.isVisible && <CSSTransition classNames='modal' timeout={350}>
         <div className={`modal modal--${props.size || 'md'}`.trim()}>
           <div className='modal__content'>
-            <button onClick={props.onHide} className='close-modal'>
-              <i className="uc-icon text-grey">&#xeb8e;</i>
-            </button>
             {props.children}
           </div>
+          <button onClick={props.onHide} className='close-modal'>
+            <i className="uc-icon text-grey">&#xeb8e;</i>
+          </button>
         </div>
       </CSSTransition>}
     </TransitionGroup>,

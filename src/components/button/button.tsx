@@ -12,7 +12,7 @@ interface ButtonRenderPropArg extends React.ButtonHTMLAttributes < HTMLButtonEle
   fill?: boolean,
   size?: 'lg' | 'sm',
   type?: 'submit' | 'reset' | 'button',
-  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon'
+  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon' | 'dark'
 }
 
 type ButtonPropsWeControl = 'id' | 'tabIndex' | 'onClick' | 'onKeyUp' | 'onKeyPress' | 'className' | 'variant' | 'size' | 'type' | 'fill' | 'type';
@@ -23,7 +23,7 @@ export function Button < TTag extends React.ElementType = typeof DEFAULT_BUTTON_
   fill?: boolean,
   size?: 'lg' | 'sm',
   type?: 'submit' | 'reset' | 'button',
-  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon',
+  variant?: 'primary' | 'secondary' | 'accent' | 'danger' | 'light' | 'link' | 'icon' | 'dark',
   onClick?: (event : React.MouseEvent < HTMLButtonElement, MouseEvent >) => void,
   className?: ((bag : ButtonRenderPropArg) => string) | string
 }) {
