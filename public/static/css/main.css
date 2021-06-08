@@ -9,32 +9,6 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Inter-Regular', sans-serif;
-  --font-family-regular: 'Inter-Regular', sans-serif;
-  --font-family-bold: 'Inter-Bold', sans-serif;
-  --font-family-medium: 'Inter-Medium', sans-serif;
-  --font-family-semibold: 'Inter-Semibold', sans-serif;
-  --font-family-light: 'Inter-Light', sans-serif;
-  --blue: #009EFA;
-  --darkBlue: #0495EA;
-  --grey: #707F8A;
-  --orange: #F4A124;
-  --opalBlue: #012236;
-  --odeurYaBlue: #0075E1;
-  --leafGreen: #20B538;
-  --asphaltGray: #D0D6E0;
-  --red: #EC442A;
-  --darkRed: #C9402B;
-  --naijaGreen: #109B26;
-  --lightGrey: #F1F2F4;
-  --glazedOrange: #EA8C00;
-  --concreteGrey: #344B5B;
-  --redTransluscent: #FFEFED;
-  --blueTransluscent: #C5E9FF;
-  --opalBlueTransluscent: rgba(0, 39, 63, 0.42);
-  --greenTransluscent: #DCF7E0;
-  --naijaGreenTransluscent: rgba(46, 171, 66, 0.42);
-  --glazedOrangeTransluscent: rgba(234, 140, 0, 0.42);
-  --oceanBlueTransluscent: #D7ECFF;
 }
 
 .pattern-bg {

@@ -19,12 +19,16 @@ export const color : {
   blueTransluscent: '#C5E9FF',
   ashGrey: '#B2BFCF',
   ashGreyDark: '#A2AFBF',
+  lighterGrey: '#F9FAFB',
   opalBlueTransluscent: 'rgba(0, 39, 63, 0.42)',
   greenTransluscent: '#DCF7E0',
   naijaGreenTransluscent: `rgba(46, 171, 66, 0.42)`,
   glazedOrangeTransluscent: 'rgba(234, 140, 0, 0.42)',
   orangeTransluscent: '#FFF2DF',
-  navyBlue: '#0B4F79'
+  navyBlue: '#0B4F79',
+  washedBlue: '#121A27',
+  black: '#0D0F12',
+  white: '#FFFFFF',
 }
 
 export const screenSize : {
@@ -43,17 +47,16 @@ export const screenSize : {
 export const size : {
   [s : string] : string
 } = {
-  xLargeWindowSize: '1300px',
-  largeWindowSize: '1000px',
+  xLargeWindowSize: '1500px',
+  largeWindowSize: '1300px',
   midWindowSize: '650px',
   borderWidth: '1px',
   borderRadius: '3px',
   inputBorderRadius: '4px'
 }
 
-export const theme : {
-  [s : string] : any
-} = {
+export function theme(mode: 'light' | 'dark'){
+  return {
   primary: color.blue,
   secondary: color.leafGreen,
   accent: color.orange,
@@ -78,6 +81,10 @@ export const theme : {
   borderedButtonBg: color.ashGrey,
   borderedButtonFocusBg: color.ashGreyDark,
   screenSize,
+  bgDark: color.washedBlue,
+  bgWhite: color.lighterGrey,
+  mode,
   ...size,
   ...color
+  }
 }
